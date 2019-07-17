@@ -33,7 +33,7 @@
             this.userNameTextBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.confirmTextBox = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.registerButton = new System.Windows.Forms.Button();
             this.returnButton = new System.Windows.Forms.Button();
@@ -87,15 +87,15 @@
             this.label2.TabIndex = 5;
             this.label2.Text = "用户名：";
             // 
-            // textBox1
+            // confirmTextBox
             // 
-            this.textBox1.Font = new System.Drawing.Font("宋体", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBox1.Location = new System.Drawing.Point(128, 276);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.PasswordChar = '*';
-            this.textBox1.Size = new System.Drawing.Size(180, 28);
-            this.textBox1.TabIndex = 10;
-            this.textBox1.UseSystemPasswordChar = true;
+            this.confirmTextBox.Font = new System.Drawing.Font("宋体", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.confirmTextBox.Location = new System.Drawing.Point(128, 276);
+            this.confirmTextBox.Name = "confirmTextBox";
+            this.confirmTextBox.PasswordChar = '*';
+            this.confirmTextBox.Size = new System.Drawing.Size(180, 28);
+            this.confirmTextBox.TabIndex = 10;
+            this.confirmTextBox.UseSystemPasswordChar = true;
             // 
             // label4
             // 
@@ -116,6 +116,7 @@
             this.registerButton.TabIndex = 11;
             this.registerButton.Text = "确认";
             this.registerButton.UseVisualStyleBackColor = true;
+            this.registerButton.Click += new System.EventHandler(this.registerButton_Click);
             // 
             // returnButton
             // 
@@ -135,7 +136,7 @@
             this.ClientSize = new System.Drawing.Size(332, 453);
             this.Controls.Add(this.returnButton);
             this.Controls.Add(this.registerButton);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.confirmTextBox);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.passwordTextBox);
             this.Controls.Add(this.userNameTextBox);
@@ -156,7 +157,7 @@
         private System.Windows.Forms.TextBox userNameTextBox;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox confirmTextBox;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button registerButton;
         private System.Windows.Forms.Button returnButton;

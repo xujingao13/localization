@@ -23,7 +23,6 @@ namespace Localization
         public string msAdminName = "admin";
         public string msAdminPassWord = "admin";
         public int miClickState = 2;
-        public ConnectDB test = new ConnectDB();
 
         private void connectButton_Click(object sender, EventArgs e)
         {
@@ -42,7 +41,8 @@ namespace Localization
             }
             else 
             {
-                miClickState = 1;
+                DAL.User userControl = new DAL.User();
+                userControl.CheckUser(userName, password);
             }
             this.Hide();
         }
@@ -54,6 +54,8 @@ namespace Localization
             this.Hide();
             formRegister frm_register = new formRegister();
             frm_register.ShowDialog();
+            this.userNameTextBox.Text = frm_register.userName;
+            this.passwordTextBox.Text = frm_register.passWord;
             this.Show();
         }
 
