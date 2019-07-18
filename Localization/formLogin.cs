@@ -42,7 +42,14 @@ namespace Localization
             else 
             {
                 DAL.User userControl = new DAL.User();
-                userControl.CheckUser(userName, password);
+                if (userControl.CheckUser(userName, password) > 0)
+                {
+                    miClickState = 1;
+                }
+                else
+                {
+                    MessageBox.Show("用户名/密码错误", "提示", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
             }
             this.Hide();
         }

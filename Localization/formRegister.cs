@@ -36,11 +36,27 @@ namespace Localization
             else
             {
                 DAL.User userControl = new DAL.User();
-                userControl.AddUser(userName, passWord);
-                this.userName = userName;
-                this.passWord = passWord;
+                int status = userControl.AddUser(userName, passWord);
+                if (status > 0)
+                {
+                    this.userName = userName;
+                    this.passWord = passWord;
+                    MessageBox.Show("注册成功");
+                    this.Close();
+                }
+                else if (status == 0)
+                {
+                    MessageBox.Show("该用户已存在");
+                    userNameTextBox.Text = "";
+                    passwordTextBox.Text = "";
+                    confirmTextBox.Text = "";
+                }
+                else
+                {
+                    MessageBox.Show("连接数据库失败");
+                }
             }
-            this.Close();
+            
         }
     }
 }

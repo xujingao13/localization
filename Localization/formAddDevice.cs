@@ -25,10 +25,19 @@ namespace Localization
 
         private void confirmButton_Click(object sender, EventArgs e)
         {
-            deviceID = this.deviceIDTextBox.Text.ToString();
             deviceMAC = this.macAddressTextBox.Text.ToString();
-            deviceRegister?.Invoke(deviceID, deviceMAC);
-            this.Close();
+            DAL.Device deviceControl = new DAL.Device();
+            int status = deviceControl.AddDevice(deviceMAC);
+            if (status > 0)
+            {
+                deviceRegister?.Invoke(status.ToString(), deviceMAC);
+                this.Close();
+            }
+            else if (status == 0)
+            {
+                MessageBox.Show("该设备已存在");
+                macAddressTextBox.Text = "";
+            }
         }
     }
 }

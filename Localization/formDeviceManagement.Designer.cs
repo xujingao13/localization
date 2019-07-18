@@ -32,9 +32,9 @@
             this.addDeviceButton = new System.Windows.Forms.Button();
             this.deleteDeviceButton = new System.Windows.Forms.Button();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.uControl_deviceInfoTitle1 = new Localization.UControl_deviceInfoTitle();
             this.button1 = new System.Windows.Forms.Button();
             this.returnButton = new System.Windows.Forms.Button();
+            this.uControl_deviceInfoTitle1 = new Localization.UControl_deviceInfoTitle();
             this.tableLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -84,6 +84,7 @@
             this.deleteDeviceButton.TabIndex = 3;
             this.deleteDeviceButton.Text = "删除设备";
             this.deleteDeviceButton.UseVisualStyleBackColor = true;
+            this.deleteDeviceButton.Click += new System.EventHandler(this.deleteDeviceButton_Click);
             // 
             // flowLayoutPanel1
             // 
@@ -97,14 +98,6 @@
             this.flowLayoutPanel1.Size = new System.Drawing.Size(824, 376);
             this.flowLayoutPanel1.TabIndex = 0;
             this.flowLayoutPanel1.WrapContents = false;
-            // 
-            // uControl_deviceInfoTitle1
-            // 
-            this.uControl_deviceInfoTitle1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.uControl_deviceInfoTitle1.Location = new System.Drawing.Point(3, 3);
-            this.uControl_deviceInfoTitle1.Name = "uControl_deviceInfoTitle1";
-            this.uControl_deviceInfoTitle1.Size = new System.Drawing.Size(818, 55);
-            this.uControl_deviceInfoTitle1.TabIndex = 0;
             // 
             // button1
             // 
@@ -129,6 +122,14 @@
             this.returnButton.UseVisualStyleBackColor = true;
             this.returnButton.Click += new System.EventHandler(this.returnButton_Click);
             // 
+            // uControl_deviceInfoTitle1
+            // 
+            this.uControl_deviceInfoTitle1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.uControl_deviceInfoTitle1.Location = new System.Drawing.Point(3, 3);
+            this.uControl_deviceInfoTitle1.Name = "uControl_deviceInfoTitle1";
+            this.uControl_deviceInfoTitle1.Size = new System.Drawing.Size(818, 55);
+            this.uControl_deviceInfoTitle1.TabIndex = 0;
+            // 
             // formDeviceManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -137,6 +138,7 @@
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "formDeviceManagement";
             this.Text = "formDeviceManagement";
+            this.Load += new System.EventHandler(this.formDeviceManagement_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);

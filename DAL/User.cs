@@ -15,7 +15,7 @@ namespace DAL
             ConnectDB db = new ConnectDB();
             int status = 0;
             string real_password;
-            string query = $"SELECT * FROM user where UserName=\'{userName}\'";
+            string query = $"SELECT * FROM user where UserName='{userName}'";
             if (db.OpenConnection() == true)
             {
                 MySqlCommand cmd = new MySqlCommand(query, db.connection);
@@ -44,25 +44,27 @@ namespace DAL
         public int AddUser(string userName, string passWord)
         {
             ConnectDB db = new ConnectDB();
-            int status = 0;
-            string check_query = $"SELECT * from user where UserName = \'{userName}\'";
-            string query = $"INSERT INTO user (UserName,PassWord) VALUES(\'{userName}\',\'{passWord}\')";
+            int status = 1;
+            string check_query = $"SELECT * from user where UserName = '{userName}'";
+            string query = $"INSERT INTO user (UserName,PassWord) VALUES('{userName}','{passWord}')";
             if (db.OpenConnection() == true)
             {
-                //create command and assign the query and connection from the constructor
-                MySqlCommand cmd = new MySqlCommand(check_query, db.connection);
-                MySqlDataReader checkReader = cmd.ExecuteReader();
-                if (checkReader.HasRows)
+                using (MySqlCommand cmd = new MySqlCommand(check_query, db.connection))
                 {
-                    status = 0;
+                    MySqlDataReader checkReader = cmd.ExecuteReader();
+                    if (checkReader.HasRows)
+                    {
+                        status = 0;
+                    }
                 }
-                else
+         
+                if(status != 0)
                 {
-                    db.connection.Close();
-                    db.connection.Open();
-                    cmd = new MySqlCommand(query, db.connection);
-                    cmd.ExecuteNonQuery();
-                    status = (int)cmd.LastInsertedId;
+                    using (MySqlCommand cmd = new MySqlCommand(query, db.connection))
+                    {
+                        cmd.ExecuteNonQuery();
+                        status = (int)cmd.LastInsertedId;
+                    }
                 }
                 //close connection
                 db.CloseConnection();
