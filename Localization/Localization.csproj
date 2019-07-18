@@ -188,6 +188,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Algorithm\Algorithm.csproj">
+      <Project>{46c4cf3d-517f-4190-b551-63bd8d43c70c}</Project>
+      <Name>Algorithm</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DAL\DAL.csproj">
       <Project>{76a34dcb-e2dd-41cb-a7b1-266c323509c6}</Project>
       <Name>DAL</Name>

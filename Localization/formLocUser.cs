@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO.Ports;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -27,6 +30,7 @@ namespace Localization
             pointWidth = pictureWidth / 50;
         }
 
+        SerialPort _serialPort;
         private Graphics g;
         private int pictureHeight;
         private int pictureWidth;
@@ -37,7 +41,7 @@ namespace Localization
         private bool isMove = false;
         private Bitmap locMapBitMap = new Bitmap("C:\\Users\\jingao\\Desktop\\test.png");
         private Bitmap originMapBitMap = new Bitmap("C:\\Users\\jingao\\Desktop\\test.png");
-
+        private delegate void getPortData(string data);
         private void exitButton_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -45,37 +49,17 @@ namespace Localization
 
         private void addLocationResultButton_Click(object sender, EventArgs e)
         {
-            //This function is only used for test
-            //g.Clear(Color.DarkGray);
-            locMapBitMap = new Bitmap(originMapBitMap);
-            g = Graphics.FromImage(locMapBitMap);
-            Random random = new Random(unchecked((int)DateTime.Now.Ticks));
-            int x = random.Next(pointWidth, locMapBitMap.Width - pointWidth);
-            int y = random.Next(pointWidth, locMapBitMap.Height - pointWidth);
-            Point p = new Point(x, y);
-            pointList.Add(p);
-
-            this.locationXText.Text = x.ToString();
-            this.locationYText.Text = y.ToString();
-            SolidBrush sb = new SolidBrush(Color.FromArgb(255, Color.Red));
-            g.FillEllipse(sb, x - pointWidth, y - pointWidth, pointWidth * 2, pointWidth * 2);
-            int count = pointList.Count;
-            if (count > 1)
+            try
             {
-                for (int i = 1; i < 6; i++)
-                {
-                    if (i > count - 1)
-                        break;
-                    Point temp_point = pointList[count - 1 - i];
-                    Color brush_color = Color.FromArgb(255 - i * 40, Color.Red);
-                    Color pen_color = Color.FromArgb(255 - i * 40, Color.Blue);
-                    SolidBrush brush = new SolidBrush(brush_color);
-                    Pen pen = new Pen(pen_color, pointWidth / 6);
-                    g.FillEllipse(brush, temp_point.X - pointWidth / 2, temp_point.Y - pointWidth / 2, pointWidth, pointWidth);
-                    g.DrawLine(pen, temp_point, pointList[count - i]);
-                }
+                if (!_serialPort.IsOpen)
+                    _serialPort.Open();
+
+                _serialPort.Write("SI\r\n");
             }
-            locViewPictureBox.Image = locMapBitMap;
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error opening/writing to serial port :: " + ex.Message, "Error!");
+            }
         }
 
         private void locViewPictureBox_MouseDown(object sender, MouseEventArgs e)
@@ -88,7 +72,6 @@ namespace Localization
                 locViewPictureBox.Focus();
             }
         }
-
         private void locViewPictureBox_MouseUp(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
@@ -96,7 +79,6 @@ namespace Localization
                 isMove = false;
             }
         }
-
         private void locViewPictureBox_MouseMove(object sender, MouseEventArgs e)
         {
             locViewPictureBox.Focus();
@@ -145,6 +127,63 @@ namespace Localization
             VX = (int)((double)x * (ow - locViewPictureBox.Width) / ow);
             VY = (int)((double)y * (oh - locViewPictureBox.Height) / oh);
             locViewPictureBox.Location = new Point(locViewPictureBox.Location.X + VX, locViewPictureBox.Location.Y + VY);
+        }
+
+        private void formLocUser_Load(object sender, EventArgs e)
+        {
+            _serialPort = new SerialPort("COM3", 115200, Parity.None, 8, StopBits.One);
+            _serialPort.Handshake = Handshake.None;
+            _serialPort.DataReceived += new SerialDataReceivedEventHandler(sp_DataReceived);
+        }
+
+        void sp_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+            Thread.Sleep(500);
+            SerialPort sp = (SerialPort)sender;
+            string indata = sp.ReadExisting();
+            indata = indata.Substring(0, 63);
+            string[] mm = Regex.Split(indata, "\\s+", RegexOptions.IgnoreCase);
+            this.BeginInvoke(new getPortData(si_DataReceived), new object[] { indata });
+        }
+
+        private void si_DataReceived(string data)
+        {
+            //Algorithm.Locate locate = new Algorithm.Locate();
+            //locate.getLocation(data);
+            Random random = new Random(unchecked((int)DateTime.Now.Ticks));
+            int x = random.Next(pointWidth, locMapBitMap.Width - pointWidth);
+            int y = random.Next(pointWidth, locMapBitMap.Height - pointWidth);
+            drawUserLocation(x, y, 0);
+        }
+
+        private void drawUserLocation(int x, int y, int z)
+        {
+            locMapBitMap = new Bitmap(originMapBitMap);
+            g = Graphics.FromImage(locMapBitMap);
+            Point p = new Point(x, y);
+            pointList.Add(p);
+
+            this.locationXText.Text = x.ToString();
+            this.locationYText.Text = y.ToString();
+            SolidBrush sb = new SolidBrush(Color.FromArgb(255, Color.Red));
+            g.FillEllipse(sb, x - pointWidth, y - pointWidth, pointWidth * 2, pointWidth * 2);
+            int count = pointList.Count;
+            if (count > 1)
+            {
+                for (int i = 1; i < 6; i++)
+                {
+                    if (i > count - 1)
+                        break;
+                    Point temp_point = pointList[count - 1 - i];
+                    Color brush_color = Color.FromArgb(255 - i * 40, Color.Red);
+                    Color pen_color = Color.FromArgb(255 - i * 40, Color.Blue);
+                    SolidBrush brush = new SolidBrush(brush_color);
+                    Pen pen = new Pen(pen_color, pointWidth / 6);
+                    g.FillEllipse(brush, temp_point.X - pointWidth / 2, temp_point.Y - pointWidth / 2, pointWidth, pointWidth);
+                    g.DrawLine(pen, temp_point, pointList[count - i]);
+                }
+            }
+            locViewPictureBox.Image = locMapBitMap;
         }
     }
 }

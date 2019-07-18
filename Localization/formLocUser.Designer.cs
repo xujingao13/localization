@@ -130,7 +130,7 @@
             this.addLocationResultButton.Name = "addLocationResultButton";
             this.addLocationResultButton.Size = new System.Drawing.Size(202, 40);
             this.addLocationResultButton.TabIndex = 5;
-            this.addLocationResultButton.Text = "添加一个位置";
+            this.addLocationResultButton.Text = "开始定位";
             this.addLocationResultButton.UseVisualStyleBackColor = true;
             this.addLocationResultButton.Click += new System.EventHandler(this.addLocationResultButton_Click);
             // 
@@ -164,6 +164,7 @@
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "formLocUser";
             this.Text = "Form2";
+            this.Load += new System.EventHandler(this.formLocUser_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.userLocationPanel.ResumeLayout(false);
