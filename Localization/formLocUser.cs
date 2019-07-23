@@ -34,13 +34,16 @@ namespace Localization
         private Graphics g;
         private int pictureHeight;
         private int pictureWidth;
+        private int time = 0;
         private List<Point> pointList = new List<Point>();
         private int pointWidth;
         private int zoomStep = 40;
         private Point mouseDownPoint = new Point();
         private bool isMove = false;
-        private Bitmap locMapBitMap = new Bitmap("C:\\Users\\jingao\\Desktop\\test.png");
-        private Bitmap originMapBitMap = new Bitmap("C:\\Users\\jingao\\Desktop\\test.png");
+        private Bitmap locMapBitMap = new Bitmap("C:\\Users\\jingao\\Desktop\\map.png");
+        private Bitmap originMapBitMap = new Bitmap("C:\\Users\\jingao\\Desktop\\map.png");
+        private int[,] beacon;
+        private int beacon_num;
         private delegate void getPortData(string data);
         private void exitButton_Click(object sender, EventArgs e)
         {
@@ -134,6 +137,13 @@ namespace Localization
             _serialPort = new SerialPort("COM3", 115200, Parity.None, 8, StopBits.One);
             _serialPort.Handshake = Handshake.None;
             _serialPort.DataReceived += new SerialDataReceivedEventHandler(sp_DataReceived);
+            int[,] map_beacon = { { 0, 0, 1650},
+                                  { 7500, 0, 1650},
+                                  { 7500, 7400, 1650}, 
+                                  { 0, 7400, 950} };
+            beacon = map_beacon;
+            beacon_num = 4;
+
         }
 
         void sp_DataReceived(object sender, SerialDataReceivedEventArgs e)
@@ -148,12 +158,14 @@ namespace Localization
 
         private void si_DataReceived(string data)
         {
-            //Algorithm.Locate locate = new Algorithm.Locate();
-            //locate.getLocation(data);
-            Random random = new Random(unchecked((int)DateTime.Now.Ticks));
-            int x = random.Next(pointWidth, locMapBitMap.Width - pointWidth);
-            int y = random.Next(pointWidth, locMapBitMap.Height - pointWidth);
-            drawUserLocation(x, y, 0);
+            Algorithm.Locate locate = new Algorithm.Locate();
+            int [] location = locate.getLocation(data, beacon, beacon_num);
+            //Random random = new Random(unchecked((int)DateTime.Now.Ticks));
+            int x = 780 - location[0] / 10;
+            int y = 850 - location[1] / 10;
+            //int x = random.Next(pointWidth, locMapBitMap.Width - pointWidth);
+            //int y = random.Next(pointWidth, locMapBitMap.Height - pointWidth);
+            drawUserLocation(x, y, location[2]);
         }
 
         private void drawUserLocation(int x, int y, int z)
@@ -164,9 +176,15 @@ namespace Localization
             pointList.Add(p);
 
             this.locationXText.Text = x.ToString();
-            this.locationYText.Text = y.ToString();
+            //this.locationYText.Text = y.ToString();
+            this.locationYText.Text = pointList.Count.ToString();
+            time += 1;
             SolidBrush sb = new SolidBrush(Color.FromArgb(255, Color.Red));
             g.FillEllipse(sb, x - pointWidth, y - pointWidth, pointWidth * 2, pointWidth * 2);
+            if(pointList.Count > 20)
+            {
+                pointList.RemoveRange(0, 15);
+            }
             int count = pointList.Count;
             if (count > 1)
             {

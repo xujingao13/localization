@@ -26,6 +26,7 @@ namespace Algorithm
             for(int i = 0; i < m; i++)
             {
                 d[i] = Convert.ToInt32(mm[i + 2], 16);
+                d[i] = d[i] * d[i];
             }
             return d;
         }
