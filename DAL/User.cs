@@ -46,6 +46,36 @@ namespace DAL
             }
             return status;
         }
+
+        public string getUserDeviceMAC(string userName)
+        {
+            string mac = "";
+            ConnectDB db = new ConnectDB();
+            string query = $"SELECT * from user join device on user.DeviceID = device.DeviceID where UserName = '{userName}'";
+            if (db.OpenConnection() == true)
+            {
+                using (MySqlCommand cmd = new MySqlCommand(query, db.connection))
+                {
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+                    if (dataReader.Read())
+                    {
+                        if ((dataReader["DeviceID"] == null) || (string.IsNullOrEmpty(dataReader["DeviceID"].ToString())))
+                        {
+                            mac = "";
+                        }
+                        else
+                        {
+                            mac = dataReader["MacAddress"].ToString();
+                        }
+                    }
+                    else
+                    {
+                        mac = "";
+                    }
+                }
+            }
+            return mac;
+        }
         
         public int AddUser(string userName, string passWord)
         {
@@ -108,6 +138,35 @@ namespace DAL
                 status = -1;
             }
             return status;
+        }
+
+        public int deleteUser(List<int> deleteList)
+        {
+            int row = 0;
+            ConnectDB db = new ConnectDB();
+            if (db.OpenConnection() == true)
+            {
+                string tumple = "(";
+                tumple += deleteList[0].ToString();
+                for (int i = 1; i < deleteList.Count; i++)
+                {
+                    tumple += ",";
+                    tumple += deleteList[i].ToString();
+                }
+                tumple += ")";
+                string query = $"DELETE from user where UserID in {tumple}";
+
+                using (MySqlCommand cmd = new MySqlCommand(query, db.connection))
+                {
+                    row = cmd.ExecuteNonQuery();
+                }
+                db.CloseConnection();
+            }
+            else
+            {
+                row = -1;
+            }
+            return row;
         }
 
         public Dictionary<int, userInfo> getUserInfo()

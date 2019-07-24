@@ -32,9 +32,9 @@
             this.addUserDeviceButton = new System.Windows.Forms.Button();
             this.deleteUserDeviceButton = new System.Windows.Forms.Button();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.uControl_userInfoTitle1 = new Localization.UControl_userInfoTitle();
             this.deleteUserButton = new System.Windows.Forms.Button();
             this.returnButton = new System.Windows.Forms.Button();
-            this.uControl_userInfoTitle1 = new Localization.UControl_userInfoTitle();
             this.tableLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -98,6 +98,14 @@
             this.flowLayoutPanel1.TabIndex = 0;
             this.flowLayoutPanel1.WrapContents = false;
             // 
+            // uControl_userInfoTitle1
+            // 
+            this.uControl_userInfoTitle1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.uControl_userInfoTitle1.Location = new System.Drawing.Point(3, 3);
+            this.uControl_userInfoTitle1.Name = "uControl_userInfoTitle1";
+            this.uControl_userInfoTitle1.Size = new System.Drawing.Size(818, 55);
+            this.uControl_userInfoTitle1.TabIndex = 0;
+            // 
             // deleteUserButton
             // 
             this.deleteUserButton.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -108,6 +116,7 @@
             this.deleteUserButton.TabIndex = 1;
             this.deleteUserButton.Text = "删除用户";
             this.deleteUserButton.UseVisualStyleBackColor = true;
+            this.deleteUserButton.Click += new System.EventHandler(this.deleteUserButton_Click);
             // 
             // returnButton
             // 
@@ -120,14 +129,6 @@
             this.returnButton.Text = "返回";
             this.returnButton.UseVisualStyleBackColor = true;
             this.returnButton.Click += new System.EventHandler(this.returnButton_Click);
-            // 
-            // uControl_userInfoTitle1
-            // 
-            this.uControl_userInfoTitle1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.uControl_userInfoTitle1.Location = new System.Drawing.Point(3, 3);
-            this.uControl_userInfoTitle1.Name = "uControl_userInfoTitle1";
-            this.uControl_userInfoTitle1.Size = new System.Drawing.Size(818, 55);
-            this.uControl_userInfoTitle1.TabIndex = 0;
             // 
             // formUserManagement
             // 

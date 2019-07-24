@@ -19,7 +19,13 @@ namespace Localization
         public formLocUser()
         {
             InitializeComponent();
-            //g = this.locViewPictureBox.CreateGraphics();
+        }
+
+        public formLocUser(int userID, string userName)
+        {
+            InitializeComponent();
+            this.userID = userID;
+            this.userName = userName;
             pictureHeight = this.locViewPictureBox.Height;
             pictureWidth = this.locViewPictureBox.Width;
             locViewPictureBox.Image = locMapBitMap;
@@ -31,6 +37,9 @@ namespace Localization
         }
 
         SerialPort _serialPort;
+        private int userID;
+        private string userName;
+        private string deviceMAC;
         private Graphics g;
         private int pictureHeight;
         private int pictureWidth;
@@ -52,16 +61,25 @@ namespace Localization
 
         private void addLocationResultButton_Click(object sender, EventArgs e)
         {
-            try
+            DAL.User userControl = new DAL.User();
+            this.deviceMAC = userControl.getUserDeviceMAC(this.userName);
+            if (deviceMAC == "")
             {
-                if (!_serialPort.IsOpen)
-                    _serialPort.Open();
-
-                _serialPort.Write("SI\r\n");
+                MessageBox.Show("你还没有被分配定位标签");
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show("Error opening/writing to serial port :: " + ex.Message, "Error!");
+                try
+                {
+                    if (!_serialPort.IsOpen)
+                        _serialPort.Open();
+
+                    _serialPort.Write("SI\r\n");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error opening/writing to serial port :: " + ex.Message, "Error!");
+                }
             }
         }
 

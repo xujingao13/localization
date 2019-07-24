@@ -58,7 +58,7 @@ namespace Localization
             UControl_userInfo targetUser = new UControl_userInfo();
             foreach (UControl_userInfo tempUser in userList)
             {
-                if (tempUser.checkBox1.Checked)
+                if (tempUser.checkBox1.Checked && tempUser.userDeviceLabel.Text == "")
                 {
                     targetUser = tempUser;
                     flag = true;
@@ -97,7 +97,7 @@ namespace Localization
             UControl_userInfo targetUser = new UControl_userInfo();
             foreach (UControl_userInfo tempUser in userList)
             {
-                if (tempUser.checkBox1.Checked)
+                if (tempUser.checkBox1.Checked && tempUser.userDeviceLabel.Text != "")
                 {
                     targetUser = tempUser;
                     flag = true;
@@ -136,6 +136,37 @@ namespace Localization
             else
             {
                 MessageBox.Show("请选择一名用户");
+            }
+        }
+
+        private void deleteUserButton_Click(object sender, EventArgs e)
+        {
+            List<int> deleteUserList = new List<int>();
+            List<UControl_userInfo> deleteUserControl = new List<UControl_userInfo>();
+            DAL.User userControl = new DAL.User();
+
+            foreach (UControl_userInfo tempUser in userList)
+            {
+                if (tempUser.checkBox1.Checked)
+                {
+                    deleteUserList.Add(int.Parse(tempUser.userIDLabel.Text));
+                    deleteUserControl.Add(tempUser);
+                }
+            }
+            if (deleteUserList.Count > 0)
+            {
+                if (userControl.deleteUser(deleteUserList) > 0)
+                {
+                    foreach (UControl_userInfo tempUser in deleteUserControl)
+                    {
+                        if(tempUser.userDeviceLabel.Text != "")
+                        {
+                            var firstKey = deviceInfo.FirstOrDefault(q => q.Value == tempUser.userDeviceLabel.Text).Key;
+                            usefulDeviceInfo.Add(firstKey, tempUser.userDeviceLabel.Text);
+                        }
+                        this.flowLayoutPanel1.Controls.Remove(tempUser);
+                    }
+                }
             }
         }
     }

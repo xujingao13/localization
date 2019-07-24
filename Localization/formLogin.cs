@@ -18,8 +18,8 @@ namespace Localization
         {
             InitializeComponent();
         }
-        public string msUserName = "jingao";
-        public string msPassWord = "123456";
+        public string userName = "";
+        public int userID = 0;
         public string msAdminName = "admin";
         public string msAdminPassWord = "admin";
         public int miClickState = 2;
@@ -42,9 +42,12 @@ namespace Localization
             else 
             {
                 DAL.User userControl = new DAL.User();
-                if (userControl.CheckUser(userName, password) > 0)
+                int status = userControl.CheckUser(userName, password);
+                if (status > 0)
                 {
                     miClickState = 1;
+                    this.userName = userName;
+                    this.userID = status;
                 }
                 else
                 {

@@ -23,7 +23,7 @@ namespace Localization
             }
             if (frm_login.miClickState == 1)
             {
-                Application.Run(new formLocUser());
+                Application.Run(new formLocUser(frm_login.userID, frm_login.userName));
             } else if (frm_login.miClickState == 3)
             {
                 Application.Run(new formAdminMain());
