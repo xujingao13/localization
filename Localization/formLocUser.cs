@@ -152,7 +152,6 @@ namespace Localization
             SerialPort sp = (SerialPort)sender;
             string indata = sp.ReadExisting();
             indata = indata.Substring(0, 63);
-            string[] mm = Regex.Split(indata, "\\s+", RegexOptions.IgnoreCase);
             this.BeginInvoke(new getPortData(si_DataReceived), new object[] { indata });
         }
 
@@ -176,8 +175,9 @@ namespace Localization
             pointList.Add(p);
 
             this.locationXText.Text = x.ToString();
-            //this.locationYText.Text = y.ToString();
-            this.locationYText.Text = pointList.Count.ToString();
+            this.locationYText.Text = y.ToString();
+            this.locationZText.Text = z.ToString();
+            //this.locationYText.Text = pointList.Count.ToString();
             time += 1;
             SolidBrush sb = new SolidBrush(Color.FromArgb(255, Color.Red));
             g.FillEllipse(sb, x - pointWidth, y - pointWidth, pointWidth * 2, pointWidth * 2);

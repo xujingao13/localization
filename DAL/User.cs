@@ -10,6 +10,12 @@ namespace DAL
 {
     public class User
     {
+        public struct userInfo
+        {
+            //public int userID;
+            public int DeviceId;
+            public string userName;
+        }
         public int CheckUser(string userName, string passWord)
         {
             ConnectDB db = new ConnectDB();
@@ -74,6 +80,64 @@ namespace DAL
                 status = -1;
             }
             return status;
+        }
+
+        public int UpdateUser(string userName, int deviceID)
+        {
+            ConnectDB db = new ConnectDB();
+            int status = 0;
+            string query = "";
+            if (deviceID > 0)
+            {
+                query = $"UPDATE user SET DeviceID = {deviceID} where UserName='{userName}'";
+            }
+            else
+            {
+                query = $"UPDATE user SET DeviceID = null where UserName='{userName}'";
+            }
+            if (db.OpenConnection() == true)
+            {
+                using (MySqlCommand cmd = new MySqlCommand(query, db.connection))
+                {
+                    status = cmd.ExecuteNonQuery();
+                }
+                db.CloseConnection();
+            }
+            else
+            {
+                status = -1;
+            }
+            return status;
+        }
+
+        public Dictionary<int, userInfo> getUserInfo()
+        {
+            Dictionary<int, userInfo> ds = new Dictionary<int, userInfo>();
+            ConnectDB db = new ConnectDB();
+            if (db.OpenConnection() == true)
+            {
+                string query = "SELECT * from user";
+                using (MySqlCommand cmd = new MySqlCommand(query, db.connection))
+                {
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+                    while (dataReader.Read())
+                    {
+                        userInfo user_info = new userInfo();
+                        if ((dataReader["DeviceID"] == null) || (string.IsNullOrEmpty(dataReader["DeviceID"].ToString())))
+                        {
+                            user_info.DeviceId = -1;
+                        }
+                        else
+                        {
+                            user_info.DeviceId = int.Parse(dataReader[1].ToString());
+                        }
+                        user_info.userName = dataReader[2].ToString();
+                        ds.Add(int.Parse(dataReader[0].ToString()), user_info);
+                    }
+                }
+                db.CloseConnection();
+            }
+            return ds;
         }
     }
 }

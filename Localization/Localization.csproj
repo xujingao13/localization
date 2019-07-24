@@ -52,6 +52,12 @@
     <Compile Include="formAddDevice.Designer.cs">
       <DependentUpon>formAddDevice.cs</DependentUpon>
     </Compile>
+    <Compile Include="formAddUserDeivce.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formAddUserDeivce.Designer.cs">
+      <DependentUpon>formAddUserDeivce.cs</DependentUpon>
+    </Compile>
     <Compile Include="formDeviceManagement.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -128,6 +134,9 @@
     </Compile>
     <EmbeddedResource Include="formAddDevice.resx">
       <DependentUpon>formAddDevice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formAddUserDeivce.resx">
+      <DependentUpon>formAddUserDeivce.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formDeviceManagement.resx">
       <DependentUpon>formDeviceManagement.cs</DependentUpon>

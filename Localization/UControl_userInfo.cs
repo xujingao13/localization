@@ -16,5 +16,13 @@ namespace Localization
         {
             InitializeComponent();
         }
+
+        public UControl_userInfo(string id, string name, string deviceName)
+        {
+            InitializeComponent();
+            this.userIDLabel.Text = id;
+            this.userNameLabel.Text = name;
+            this.userDeviceLabel.Text = deviceName;
+        }
     }
 }
