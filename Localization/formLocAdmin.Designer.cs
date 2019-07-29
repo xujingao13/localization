@@ -72,7 +72,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 36F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(832, 453);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
@@ -81,9 +81,9 @@
             this.label3.AutoSize = true;
             this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label3.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label3.Location = new System.Drawing.Point(3, 154);
+            this.label3.Location = new System.Drawing.Point(3, 148);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(326, 34);
+            this.label3.Size = new System.Drawing.Size(326, 33);
             this.label3.TabIndex = 5;
             this.label3.Text = "用户列表：";
             this.label3.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
@@ -98,21 +98,21 @@
             this.tableLayoutPanel2.Controls.Add(this.button2, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.addMapButton, 0, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 71);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 69);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 2;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(326, 80);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(326, 76);
             this.tableLayoutPanel2.TabIndex = 1;
             // 
             // exitButton
             // 
             this.exitButton.Dock = System.Windows.Forms.DockStyle.Fill;
             this.exitButton.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.exitButton.Location = new System.Drawing.Point(166, 43);
+            this.exitButton.Location = new System.Drawing.Point(166, 41);
             this.exitButton.Name = "exitButton";
-            this.exitButton.Size = new System.Drawing.Size(157, 34);
+            this.exitButton.Size = new System.Drawing.Size(157, 32);
             this.exitButton.TabIndex = 3;
             this.exitButton.Text = "退出";
             this.exitButton.UseVisualStyleBackColor = true;
@@ -122,9 +122,9 @@
             // 
             this.button3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button3.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.button3.Location = new System.Drawing.Point(3, 43);
+            this.button3.Location = new System.Drawing.Point(3, 41);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(157, 34);
+            this.button3.Size = new System.Drawing.Size(157, 32);
             this.button3.TabIndex = 2;
             this.button3.Text = "返回";
             this.button3.UseVisualStyleBackColor = true;
@@ -135,7 +135,7 @@
             this.button2.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.button2.Location = new System.Drawing.Point(166, 3);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(157, 34);
+            this.button2.Size = new System.Drawing.Size(157, 32);
             this.button2.TabIndex = 1;
             this.button2.Text = "编辑地图";
             this.button2.UseVisualStyleBackColor = true;
@@ -146,7 +146,7 @@
             this.addMapButton.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.addMapButton.Location = new System.Drawing.Point(3, 3);
             this.addMapButton.Name = "addMapButton";
-            this.addMapButton.Size = new System.Drawing.Size(157, 34);
+            this.addMapButton.Size = new System.Drawing.Size(157, 32);
             this.addMapButton.TabIndex = 0;
             this.addMapButton.Text = "添加地图";
             this.addMapButton.UseVisualStyleBackColor = true;
@@ -156,7 +156,7 @@
             // 
             this.comboBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(3, 37);
+            this.comboBox1.Location = new System.Drawing.Point(3, 36);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(326, 23);
             this.comboBox1.TabIndex = 2;
@@ -168,7 +168,7 @@
             this.label1.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label1.Location = new System.Drawing.Point(3, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(326, 34);
+            this.label1.Size = new System.Drawing.Size(326, 33);
             this.label1.TabIndex = 3;
             this.label1.Text = "当前定位地图：";
             this.label1.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
@@ -180,7 +180,7 @@
             this.label2.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label2.Location = new System.Drawing.Point(335, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(494, 34);
+            this.label2.Size = new System.Drawing.Size(494, 33);
             this.label2.TabIndex = 4;
             this.label2.Text = "定位结果展示";
             this.label2.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -190,10 +190,10 @@
             this.flowLayoutPanel1.AutoScroll = true;
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 191);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 184);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.tableLayoutPanel1.SetRowSpan(this.flowLayoutPanel1, 2);
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(326, 235);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(326, 224);
             this.flowLayoutPanel1.TabIndex = 6;
             this.flowLayoutPanel1.WrapContents = false;
             // 
@@ -202,10 +202,10 @@
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.locViewPictureBox);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(335, 37);
+            this.panel1.Location = new System.Drawing.Point(335, 36);
             this.panel1.Name = "panel1";
             this.tableLayoutPanel1.SetRowSpan(this.panel1, 6);
-            this.panel1.Size = new System.Drawing.Size(494, 413);
+            this.panel1.Size = new System.Drawing.Size(494, 414);
             this.panel1.TabIndex = 7;
             // 
             // locViewPictureBox
@@ -223,12 +223,12 @@
             // addLocButton
             // 
             this.addLocButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.addLocButton.Font = new System.Drawing.Font("Consolas", 5.4F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.addLocButton.Location = new System.Drawing.Point(3, 432);
+            this.addLocButton.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.addLocButton.Location = new System.Drawing.Point(3, 414);
             this.addLocButton.Name = "addLocButton";
-            this.addLocButton.Size = new System.Drawing.Size(326, 18);
+            this.addLocButton.Size = new System.Drawing.Size(326, 36);
             this.addLocButton.TabIndex = 8;
-            this.addLocButton.Text = "Add a location";
+            this.addLocButton.Text = "开始定位";
             this.addLocButton.UseVisualStyleBackColor = true;
             this.addLocButton.Click += new System.EventHandler(this.addLocButton_Click);
             // 
@@ -246,6 +246,7 @@
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "formLocAdmin";
             this.Text = "formLocAdmin";
+            this.Load += new System.EventHandler(this.formLocAdmin_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);

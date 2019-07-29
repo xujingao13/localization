@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
+using System.Drawing;
 
 namespace Algorithm
 {
@@ -64,6 +65,30 @@ namespace Algorithm
                 result[i] = Convert.ToInt32(location[i]);
             }
             return result;
+        }
+
+        public Point getOptimizedLocation(List<Point> originalLocationList, Point originalLocation)
+        {
+            Point optimizedLocation = new Point();
+            int m = originalLocationList.Count;
+            if (m == 0)
+            {
+                return originalLocation;
+            }
+
+            int delta = Math.Abs(originalLocationList[m - 1].X - originalLocation.X) +
+                        Math.Abs(originalLocationList[m - 1].Y - originalLocation.Y);
+
+            if(delta < 50 || delta > 450)
+            {
+                optimizedLocation = originalLocationList[m - 1];
+            }
+            else
+            {
+                optimizedLocation = originalLocation;
+            }
+
+            return optimizedLocation;
         }
     }
 }

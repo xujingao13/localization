@@ -17,6 +17,15 @@ namespace Localization
             InitializeComponent();
             userSelectedBox.CheckedChanged += userSelectedBox_CheckedChanged;
         }
+        public UControl_userCheck(string userName, string mac)
+        {
+            InitializeComponent();
+            userNameLabel.Text = userName;
+            deviceMac = mac;
+            userSelectedBox.CheckedChanged += userSelectedBox_CheckedChanged;
+        }
+
+        private string deviceMac = "";
 
         private event EventHandler checkChanged = null;
 

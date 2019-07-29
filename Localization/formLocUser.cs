@@ -28,12 +28,12 @@ namespace Localization
             this.userName = userName;
             pictureHeight = this.locViewPictureBox.Height;
             pictureWidth = this.locViewPictureBox.Width;
-            locViewPictureBox.Image = locMapBitMap;
+            locViewPictureBox.Image = originMapBitMap;
             locViewPictureBox.SizeMode = PictureBoxSizeMode.Zoom;
-            locViewPictureBox.Width = locMapBitMap.Width;
-            locViewPictureBox.Height = locMapBitMap.Height;
-            //g = Graphics.FromImage(locMapBitMap);
-            pointWidth = pictureWidth / 50;
+            locViewPictureBox.Width = userLocationPanel.Width;
+            pointWidth = originMapBitMap.Width / 40;
+            //locViewPictureBox.Height = locMapBitMap.Height;
+            //g = Graphics.FromImage(locMapBitMap)
         }
 
         SerialPort _serialPort;
@@ -49,7 +49,6 @@ namespace Localization
         private int zoomStep = 40;
         private Point mouseDownPoint = new Point();
         private bool isMove = false;
-        private Bitmap locMapBitMap = new Bitmap("C:\\Users\\jingao\\Desktop\\map.png");
         private Bitmap originMapBitMap = new Bitmap("C:\\Users\\jingao\\Desktop\\map.png");
         private int[,] beacon;
         private int beacon_num;
@@ -135,7 +134,7 @@ namespace Localization
             }
             if (e.Delta < 0)
             {
-                if (locViewPictureBox.Width < locMapBitMap.Width / 10)
+                if (locViewPictureBox.Width < originMapBitMap.Width / 10)
                     return;
                 locViewPictureBox.Width -= zoomStep;
                 locViewPictureBox.Height -= zoomStep;
@@ -161,16 +160,18 @@ namespace Localization
                                   { 0, 7400, 950} };
             beacon = map_beacon;
             beacon_num = 4;
-
         }
 
-        void sp_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        public void sp_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             Thread.Sleep(500);
             SerialPort sp = (SerialPort)sender;
             string indata = sp.ReadExisting();
             indata = indata.Substring(0, 63);
-            this.BeginInvoke(new getPortData(si_DataReceived), new object[] { indata });
+            if (deviceMAC == indata.Substring(59, 2))
+            {
+                this.BeginInvoke(new getPortData(si_DataReceived), new object[] { indata });
+            }
         }
 
         private void si_DataReceived(string data)
@@ -182,12 +183,13 @@ namespace Localization
             int y = 850 - location[1] / 10;
             //int x = random.Next(pointWidth, locMapBitMap.Width - pointWidth);
             //int y = random.Next(pointWidth, locMapBitMap.Height - pointWidth);
-            drawUserLocation(x, y, location[2]);
+            Point optLoc = locate.getOptimizedLocation(pointList, new Point(x, y));
+            drawUserLocation(optLoc.X, optLoc.Y, location[2]);
         }
 
         private void drawUserLocation(int x, int y, int z)
         {
-            locMapBitMap = new Bitmap(originMapBitMap);
+            Bitmap locMapBitMap = new Bitmap(originMapBitMap);
             g = Graphics.FromImage(locMapBitMap);
             Point p = new Point(x, y);
             pointList.Add(p);

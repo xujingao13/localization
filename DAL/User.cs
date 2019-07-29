@@ -76,7 +76,32 @@ namespace DAL
             }
             return mac;
         }
-        
+
+        public Dictionary<string, string> getUserDevice()
+        {
+            Dictionary<string, string> userDeviceAssociate = new Dictionary<string, string>();
+            ConnectDB db = new ConnectDB();
+            string query = "SELECT * from user join device on user.DeviceID = device.DeviceID";
+            if (db.OpenConnection() == true)
+            {
+                using (MySqlCommand cmd = new MySqlCommand(query, db.connection))
+                {
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+                    while (dataReader.Read())
+                    {
+                        if ((dataReader["DeviceID"] == null) || (string.IsNullOrEmpty(dataReader["DeviceID"].ToString())))
+                        {
+                            
+                        }
+                        else
+                        {
+                            userDeviceAssociate.Add(dataReader["UserName"].ToString(), dataReader["MacAddress"].ToString());
+                        }
+                    }
+                }
+            }
+            return userDeviceAssociate;
+        }
         public int AddUser(string userName, string passWord)
         {
             ConnectDB db = new ConnectDB();
