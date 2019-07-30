@@ -49,18 +49,17 @@ namespace Localization
             {
                 mapFileName = openFileDialog1.FileName;
                 //locViewPictureBox.Load(openFileDialog1.FileName);
+                originMapBitMap = new Bitmap(mapFileName);
+                if (originMapBitMap == null)
+                {
+                    MessageBox.Show("读取失败");
+                    return;
+                }
+                locViewPictureBox.Image = originMapBitMap;
+                locViewPictureBox.SizeMode = PictureBoxSizeMode.Zoom;
+                locViewPictureBox.Width = originMapBitMap.Width;
+                locViewPictureBox.Height = originMapBitMap.Height;
             }
-            originMapBitMap = new Bitmap(mapFileName);
-            if(originMapBitMap == null)
-            {
-                MessageBox.Show("读取失败");
-                return;
-            }
-            locViewPictureBox.Image = originMapBitMap;
-            locViewPictureBox.SizeMode = PictureBoxSizeMode.Zoom;
-            locViewPictureBox.Width = originMapBitMap.Width;
-            locViewPictureBox.Height = originMapBitMap.Height;
-           
         }
 
         private void locViewPictureBox_MouseDown(object sender, MouseEventArgs e)
@@ -278,6 +277,16 @@ namespace Localization
                 }
             }
             locViewPictureBox.Image = locMapBitMap;
+        }
+
+        private void tableLayoutPanel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("暂不支持");
         }
     }
 }
